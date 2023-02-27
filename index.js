@@ -3,6 +3,7 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const socketio = require("socket.io");
+const { SocketAddress } = require("net");
 const app = express();
 
 app.set("port", process.env.PORT || 3000);
@@ -15,6 +16,10 @@ const server = app.listen(app.get("port"), () => {
 
 const io = socketio(server);
 
-io.on("connection", () => {
-  console.log("new connection");
+io.on("connection", (socket) => {
+  console.log("new connection", socket.id);
+
+  socket.on("chat:message", (chat) => {
+    io.sockets.emit("chat:message", chat);
+  });
 });

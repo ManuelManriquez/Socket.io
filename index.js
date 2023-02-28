@@ -1,25 +1,22 @@
 require("dotenv").config();
+require("./utils/mongoose");
 
-const path = require("path");
-const express = require("express");
-const socketio = require("socket.io");
-const { SocketAddress } = require("net");
-const app = express();
+const noteRoutes = require("./routes/note.routes");
 
-app.set("port", process.env.PORT || 3000);
-
-app.use(express.static(path.join(__dirname, "public")));
-
-const server = app.listen(app.get("port"), () => {
-  console.log(`listening on port ${process.env.PORT}`);
+const fastify = require("fastify")({
+  logger: true,
 });
 
-const io = socketio(server);
-
-io.on("connection", (socket) => {
-  console.log("new connection", socket.id);
-
-  socket.on("chat:message", (chat) => {
-    io.sockets.emit("chat:message", chat);
-  });
+fastify.get("/", (req, res) => {
+  res.send({ hello: "world" });
 });
+
+noteRoutes.forEach((route) => {
+  fastify.route(route);
+});
+
+const start = async () => {
+  await fastify.listen({ port: process.env.PORT });
+};
+
+start();

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.io!</title>
+    <link rel="stylesheet" href="../public/styles.css" />
+  </head>
+  <body>
+    <div id="notes-container">
+      <div>
+        <p>title</p>
+      </div>
+      <div>
+        <p>text</p>
+      </div>
+    </div>
+    <div id="notes-actions">
+      <input type="text" placeholder="Note title" />
+      <textarea
+        name=""
+        id=""
+        cols="20"
+        rows="4"
+        placeholder="Note Text"
+      ></textarea>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+  </body>
+</html>

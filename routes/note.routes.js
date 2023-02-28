@@ -6,6 +6,11 @@ const router = [
     method: "GET",
     handler: note.getNotes,
   },
+  {
+    url: "/notes",
+    method: "POST",
+    handler: note.postNote,
+  },
 ];
 
 module.exports = router;

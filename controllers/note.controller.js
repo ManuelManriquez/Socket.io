@@ -1,8 +1,14 @@
-const note = require("../models/note.model.js");
+const Note = require("../models/note.model.js");
 
 const getNotes = async (req, res) => {
-    const notes = await note.find();
-    return res.code(200).send(notes);
-}
+  const notes = await Note.find();
+  return res.code(200).send(notes);
+};
 
-module.exports = {getNotes};
+const postNote = async (req, res) => {
+  const newNote = new Note(req.body);
+  await newNote.save();
+  return res.code(200).send(newNote);
+};
+
+module.exports = { getNotes, postNote };
